@@ -1,0 +1,14 @@
+{
+  "name": "mrphys",
+  "owner": {
+    "name": "UCL Centre for Translational Cardiac Imaging"
+  },
+  "description": "Writing tools for the mphys research group.",
+  "plugins": [
+    {
+      "name": "mrphys-writing",
+      "source": "./",
+      "description": "Drafting and style-review skills that write in the mrphys style."
+    }
+  ]
+}

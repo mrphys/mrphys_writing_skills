@@ -1,0 +1,91 @@
+{
+  "_comment": "Deterministic rules for scripts/lint_tex.py, from corpus/analysis/profile.md and the group decisions in references/open-questions.md (2026-11-26). banned_phrases: case-insensitive; patterns: case-sensitive regexes.",
+  "banned_phrases": [
+    {
+      "pattern": "\\bnovel\\b",
+      "message": "Group papers avoid 'novel' (13/16). State what is new, or use 'To our knowledge, ... first' once in the Discussion."
+    },
+    {
+      "pattern": "\\bdelve",
+      "message": "Not group vocabulary."
+    },
+    {
+      "pattern": "\\b(groundbreaking|unprecedented|paradigm shift|revolutioni[sz]e)",
+      "message": "Overclaiming; the group states results plainly."
+    },
+    {
+      "pattern": "\\bit is worth noting that\\b",
+      "message": "The group uses 'It should be noted that'."
+    },
+    {
+      "pattern": "\\breal time\\b|\\brealtime\\b",
+      "message": "Use 'real-time' (always hyphenated in group papers)."
+    },
+    {
+      "pattern": "\\bdeep-learning\\b",
+      "message": "Use 'deep learning' (no hyphen)."
+    },
+    {
+      "pattern": "\\b(optimi|normali|utili|minimi|maximi|characteri|visuali|regulari|generali|reali|recogni|organi|randomi|summari|standardi|parameteri|emphasi|categori|initiali|synthesi|stabili|vectori|discreti|binari)z(e|ed|es|ing|ation|ations|er|ers)\\b",
+      "message": "British spelling [decided]: -ise/-isation (e.g. optimise, normalisation)."
+    },
+    {
+      "pattern": "\\b(center|centers|centered|color|colors|modeling|modeled|labeled|labeling|analyze|analyzed|analyzing|pediatric|edema|behavior|fiber|gray)\\b|\\bhemo(dynamic|globin)",
+      "message": "British spelling [decided]: centre, colour, modelling, labelled, analyse, paediatric, oedema, behaviour, fibre, grey, haemodynamic."
+    },
+    {
+      "pattern": "\\bartefact",
+      "message": "Use 'artifact' [decided], the one American spelling the group keeps."
+    }
+  ],
+  "patterns": [
+    {
+      "pattern": "\\bFigs?\\.\\s*~?\\\\?\\w",
+      "message": "Write 'Figure N' in full (the journal may abbreviate it)."
+    },
+    {
+      "pattern": "\\bP\\s*[<=>≤≥]|\\bP-value",
+      "message": "Use lowercase p: 'p<0.05', 'p-value'."
+    },
+    {
+      "pattern": "\\d\\s+\\\\?%",
+      "message": "No space before %: '10%'."
+    },
+    {
+      "pattern": "\\d(ms|mm|cm|min)\\b",
+      "message": "Put a space between number and unit: '30 ms'."
+    },
+    {
+      "pattern": "\\b\\d+(\\.\\d+)?\\s+T\\b(?!-)",
+      "message": "Field strength without a space [decided]: '1.5T'."
+    },
+    {
+      "pattern": "\\S±|±\\S",
+      "message": "Spaces around ± [decided]: '30 ± 1 s'."
+    },
+    {
+      "pattern": "\\b\\d+(\\.\\d+)?-\\d+(\\.\\d+)?\\s?(ms|s|mm|cm|min|years|y|kg|bpm|%|\\\\%)(?![\\w-])",
+      "message": "Ranges take an en dash [decided]: '1–3 ms' (-- in LaTeX)."
+    },
+    {
+      "pattern": "\\bp\\s*[<=>≤≥]\\s*\\.\\d",
+      "message": "Keep the leading zero [decided]: 'p=0.0004'."
+    },
+    {
+      "pattern": "(?<![(\\w])(i|ii|iii|iv|v|vi|vii)\\)\\s",
+      "message": "Number inline lists '(i)', '(ii)' [decided], not 'i)'."
+    }
+  ],
+  "preferred_variants": [],
+  "acronyms_no_definition_needed": [
+    "MRI",
+    "MR",
+    "CT",
+    "SD",
+    "GPU",
+    "CPU",
+    "UK",
+    "USA",
+    "ECG"
+  ]
+}

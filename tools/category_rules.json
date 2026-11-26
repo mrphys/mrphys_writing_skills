@@ -1,0 +1,132 @@
+{
+  "_comment": "Rules for `build_corpus.py classify`, applied in order: (1) review: pubtype or title matches -> 'review'. (2) deep learning: if title or abstract matches, the label is chosen only from `allowed` (higher score wins; ties go to the first listed). (3) otherwise the top-scoring category in `categories`. Scoring: a title match adds title_weight, an abstract match adds abstract_weight[category] (default 1). Regexes are case-insensitive. Earlier categories win ties. A second label is added if it scores >= secondary_fraction of the top. Below min_score -> 'other'.",
+  "title_weight": 3,
+  "min_score": 2,
+  "secondary_fraction": 0.6,
+  "abstract_weight": {
+    "clinical": 0.5,
+    "acquisition": 0.5
+  },
+  "review": {
+    "pubtype": "review-article|\\breview\\b|guideline|consensus|editorial",
+    "title": [
+      "\\breview\\b",
+      "state of",
+      "current state",
+      "consensus",
+      "statement",
+      "recommendations?\\b",
+      "position paper",
+      "expert",
+      "tutorial",
+      "perspective",
+      "overview"
+    ]
+  },
+  "deep_learning": {
+    "patterns": [
+      "deep learning",
+      "deep-learning",
+      "neural network",
+      "\\bcnns?\\b",
+      "u-?nets?\\b",
+      "convolutional",
+      "deep (artifact|artefact)",
+      "\\bgans?\\b",
+      "generative adversarial",
+      "transformer",
+      "diffusion model"
+    ],
+    "allowed": [
+      "segmentation",
+      "reconstruction"
+    ]
+  },
+  "categories": {
+    "reconstruction": [
+      "reconstruct",
+      "artifact suppression",
+      "artefact suppression",
+      "undersampl",
+      "compressed sensing",
+      "\\bk-t\\b",
+      "k-space",
+      "\\bsense\\b",
+      "grappa",
+      "denois",
+      "super-resolution",
+      "accelerat",
+      "real-time",
+      "low-latency",
+      "aliasing",
+      "image quality",
+      "image enhancement",
+      "\\benhanc(e|ement)\\b.*\\bimage",
+      "dose reduction|reduc\\w* (contrast|dose)"
+    ],
+    "segmentation": [
+      "segment",
+      "delineat",
+      "contour",
+      "label(l)?ing",
+      "volumetr",
+      "automated (analysis|measurement|quantification)",
+      "\\bdice\\b",
+      "ventricular volumes",
+      "automat(ed|ic) (pipeline|assessment)",
+      "deep learning pipeline",
+      "classif",
+      "cluster"
+    ],
+    "computational": [
+      "computational fluid",
+      "\\bcfd\\b",
+      "simulat",
+      "haemodynamic model",
+      "hemodynamic model",
+      "patient-specific",
+      "pressure (and|&) velocity",
+      "flow field",
+      "finite element",
+      "lumped.parameter",
+      "windkessel",
+      "in silico"
+    ],
+    "acquisition": [
+      "excitation",
+      "\\bpulses?\\b",
+      "trajectory",
+      "pulse sequence",
+      "sequence design",
+      "sequence optimi[sz]",
+      "\\bcoils?\\b",
+      "\\bdevice\\b",
+      "hardware",
+      "mri-compatible",
+      "\\bshim",
+      "spiral",
+      "radial",
+      "\\b23na\\b|sodium mri",
+      "protocol",
+      "\\bbssfp\\b",
+      "hyperband|hyperparameter optimi[sz]"
+    ],
+    "clinical": [
+      "patients? with",
+      "cohort",
+      "outcome",
+      "prognos",
+      "registry",
+      "survival",
+      "mortality",
+      "case-control",
+      "retrospective",
+      "prospective",
+      "hazard ratio",
+      "\\btrial\\b",
+      "associated with",
+      "healthy volunteers",
+      "biomarker"
+    ]
+  }
+}
