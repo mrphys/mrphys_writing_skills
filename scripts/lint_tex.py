@@ -40,7 +40,7 @@ def lint(path: Path, rules: dict):
     text = path.read_text(encoding="utf-8", errors="replace")
     findings = []
     defined = set(rules.get("acronyms_no_definition_needed", []))
-    acronym_def = re.compile(r"\(([A-Z][A-Za-z0-9+\-]*[A-Z0-9+])s?\)")
+    acronym_def = re.compile(r"\(([A-Z][A-Za-z0-9+\-]*[A-Z0-9+])s?[);,]")
     acronym_use = re.compile(r"(?<![\\{$_A-Za-z])([A-Z][A-Z0-9+\-]{1,}[A-Z0-9+])(?:s)?\b")
 
     for n, line in prose_lines(text):
@@ -55,9 +55,15 @@ def lint(path: Path, rules: dict):
             for bad in v["instead_of"]:
                 if re.search(r"(?<![\w$_])" + re.escape(bad) + r"(?![\w}])", line):
                     findings.append((n, "variant", f"use '{v['use']}' instead of '{bad}'"))
-        # Definitions on this line count before uses on the same line.
-        defined.update(m.group(1) for m in acronym_def.finditer(line))
-        for m in acronym_use.finditer(line):
+        # Citation, reference and label keys are not prose.
+        prose = re.sub(r"\\(cite[a-z]*|ref|eqref|autoref|cref|label|url|href)\*?(\[[^\]]*\])*\{[^}]*\}", " ", line)
+        # Definitions on this line count before uses on the same line, including combined ones: "(SNR and CNR)".
+        defined.update(m.group(1) for m in acronym_def.finditer(prose))
+        for grp in re.findall(r"\(([^()]*)\)", prose):
+            toks = re.split(r"\s*(?:,|;|\band\b|/)\s*", grp.strip())
+            if toks and all(re.fullmatch(r"[A-Z][A-Za-z0-9+\-]*[A-Z0-9+]s?", t) for t in toks if t):
+                defined.update(t.rstrip("s") if t.endswith("s") and t[:-1].isupper() else t for t in toks if t)
+        for m in acronym_use.finditer(prose):
             acr = m.group(1)
             if acr not in defined:
                 findings.append((n, "acronym", f"'{acr}' used before definition"))

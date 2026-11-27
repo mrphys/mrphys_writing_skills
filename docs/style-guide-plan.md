@@ -156,5 +156,12 @@ Scope for v0.1: **reconstruction and segmentation only**. Style authors: V. Muth
   `lint-rules.json` (British spelling except 'artifact', '1.5T', '(i)', spaced ±, en-dash ranges,
   leading-zero p, 'This figure shows…', limitations in the Discussion unless requested).
 - [x] Phase 4: 25 annotated verbatim excerpts in `references/exemplars/{reconstruction,segmentation}/`.
-- [ ] Phase 5: group review. [ ] Phase 6: test against held-out papers.
+- [ ] Phase 5: group review.
+- [x] Phase 6, automated part (2026-11-26): 3 held-out papers × 3 sections drafted from content-only notes,
+  with the skill (guided) and without it (baseline). `tools/eval_drafts.py` → `corpus/eval/report.md`.
+  Guided: 0 lint findings vs 33 for the baseline; matches the original's signature moves in 26/39 cases vs
+  19/39 for the baseline; closer to the original on style measurements (0.63 vs 0.73). Over-applies some
+  moves (29 used vs 22 in the originals). Blind A/B/C packs for human judging are in `corpus/eval/blind/`
+  (key in key.json).
+- [ ] Phase 6, human part: VM/JS blind judgements, then turn the feedback into rules.
   [ ] Phase 7: done for loading the category file in the skills; per-category lint and venue files to do.
